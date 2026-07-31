@@ -9,6 +9,7 @@ import { BodyEditor } from './components/BodyEditor';
 import { SendButton } from './components/SendButton';
 import { ApiPresets } from './components/ApiPresets';
 import type { ApiPreset } from './data/presets';
+import type { HttpMethod } from '../../types/http.types';
 
 const BODY_METHODS = new Set(['POST', 'PUT', 'PATCH']);
 
@@ -38,7 +39,7 @@ export function RequestBuilder() {
   const [activeTab, setActiveTab] = useState<Tab>('headers');
 
   // If the method changes to one that doesn't support body, reset to headers tab
-  const handleMethodChange = (newMethod: Parameters<typeof setMethod>[0]) => {
+  const handleMethodChange = (newMethod: HttpMethod) => {
     setMethod(newMethod);
     if (!BODY_METHODS.has(newMethod) && activeTab === 'body') {
       setActiveTab('headers');
